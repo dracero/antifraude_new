@@ -86,6 +86,7 @@ export default function App() {
           document
             .getElementById("class-b")
             .setAttribute("disabled", "disabled");
+          const screenshot = video.getScreenshot();
         }
         if (c === 20) {
           document
