@@ -10,7 +10,6 @@ export default function App() {
   const [counta, setCounta] = useState(0);
   const [countb, setCountb] = useState(0);
   const [countc, setCountc] = useState(0);
-  const [cam, setCam] = useState(null);
   const videoConstraints = {
     width: 156,
     height: 156,
@@ -102,10 +101,17 @@ export default function App() {
       prediction: ${classes[result.label]}\n
       probability: ${result.confidences[result.label]}
     `;
-     if (a>=20 && b>=20 && c>=20 && result.confidences[result.label]<=0.6 )
-      {
-        alert("Hola")
-      }
+        if (
+          a >= 20 &&
+          b >= 20 &&
+          c >= 20 &&
+          result.confidences[result.label] >= 0.6 &&
+          (classes[result.label] === "B" || classes[result.label] === "C")
+        ) {
+          var fraude = this.webcam1.getScreenshot();
+          console.log(fraude);
+          alert("Te estás copiando");
+        }
         // Dispose the tensor to release the memory.
         img.dispose();
       }
@@ -115,36 +121,36 @@ export default function App() {
   }
 
   const capturea = () => {
-    if (counta >= 20){
-       var figa = this.webcam1.getScreenshot();
-       console.log(figa)
-       setCounta(0)
-       return figa
-     } else return null
-  }
+    if (counta >= 20) {
+      var figa = this.webcam1.getScreenshot();
+      console.log(figa);
+      setCounta(0);
+      return figa;
+    } else return null;
+  };
   const captureb = () => {
-    if (countb >= 20){
-       var figb = this.webcam1.getScreenshot();
-       console.log(figb)
-       setCountb(0)
-       return figb
-     } else return null
-    }
-        
-  const capturec = () => {
-     if (countc >= 20){
-       var figc = this.webcam1.getScreenshot();
-       console.log(figc)
-       setCountc(0)
-       return figc
-     } else return null
-    }
+    if (countb >= 20) {
+      var figb = this.webcam1.getScreenshot();
+      console.log(figb);
+      setCountb(0);
+      return figb;
+    } else return null;
+  };
 
-return [
+  const capturec = () => {
+    if (countc >= 20) {
+      var figc = this.webcam1.getScreenshot();
+      console.log(figc);
+      setCountc(0);
+      return figc;
+    } else return null;
+  };
+
+  return [
     <div>
       <div id="console"></div>
       {video}
-      {capturea()}      
+      {capturea()}
       {captureb()}
       {capturec()}
       <button onClick={app} id="video">
