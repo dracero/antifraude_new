@@ -10,6 +10,7 @@ export default function App() {
   const [counta, setCounta] = useState(0);
   const [countb, setCountb] = useState(0);
   const [countc, setCountc] = useState(0);
+  const [cam, setCam] = useState(null);
   const videoConstraints = {
     width: 156,
     height: 156,
@@ -101,7 +102,10 @@ export default function App() {
       prediction: ${classes[result.label]}\n
       probability: ${result.confidences[result.label]}
     `;
-
+     if (a>=20 && b>=20 && c>=20 && result.confidences[result.label]<=0.6 )
+      {
+        alert("Hola")
+      }
         // Dispose the tensor to release the memory.
         img.dispose();
       }
@@ -136,13 +140,13 @@ export default function App() {
      } else return null
     }
 
-  return [
+return [
     <div>
       <div id="console"></div>
       {video}
-      {<img src={capturea()} />}
-      {<img src={captureb()} />}
-      {<img src={capturec()} />}
+      {capturea()}      
+      {captureb()}
+      {capturec()}
       <button onClick={app} id="video">
         VideoCapture
       </button>
