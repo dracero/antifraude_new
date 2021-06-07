@@ -4,8 +4,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 
 const Sonido = () => {
-  const { transcript } = useSpeechRecognition();
-
+  const { transcript, resetTranscript } = useSpeechRecognition();
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null;
   } else {
@@ -14,7 +13,9 @@ const Sonido = () => {
       language: "es-AR"
     });
   }
-
+  if (transcript.split(" ").length > 20) {
+    resetTranscript(); //acá tengo que enviar a grabar lo que dice
+  }
   return (
     <div>
       <p>{transcript}</p>

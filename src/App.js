@@ -3,7 +3,6 @@ import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Menu from "./Menu";
 import GoogleBtn from "./sigin";
-import Photo from "./photo";
 import Moodle from "./iframe";
 import store from "./store";
 import { Provider } from "react-redux";
@@ -23,7 +22,6 @@ class App extends Component {
           <GoogleBtn />
           <Menu />
           <Switch>
-            <Route path="/Photo" component={Photo} />
             <Route path="/Moodle" component={Moodle} />
           </Switch>
         </Router>

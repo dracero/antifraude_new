@@ -3,7 +3,6 @@ import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
-import Sonido from "./Sonido";
 
 export default function App() {
   var webcam;
@@ -165,7 +164,6 @@ export default function App() {
       <button onClick={() => setCountc(countc + 1)} id="class-c">
         Add C
       </button>
-      <Sonido />
     </div>
   ];
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { loginApp } from "./actions";
 import { connect } from "react-redux";
 import Videocam from "./tfj";
+import Sonido from "./Sonido";
 
 class Menu extends Component {
   componentDidMount() {
@@ -31,11 +32,6 @@ class Menu extends Component {
                 </Link>
               </li>
               <li>
-                <Link to={"/Photo"} className="nav-link">
-                  Link a la foto
-                </Link>
-              </li>
-              <li>
                 <Link to={"/Moodle"} className="nav-link">
                   Link al parcial
                 </Link>
@@ -44,6 +40,7 @@ class Menu extends Component {
           </nav>
           <hr />
           <div id="console"></div>
+          <Sonido />
         </div>
       );
     } //acá termina el render
