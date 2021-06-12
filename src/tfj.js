@@ -20,7 +20,7 @@ export default function App() {
     <Webcam
       id="webcam"
       audio={false}
-      ref={(node) => (this.webcam1 = node)}
+      ref={(node) => (this.webcam = node)}
       screenshotFormat="image/jpeg"
       videoConstraints={videoConstraints}
     />
@@ -106,11 +106,15 @@ export default function App() {
           result.confidences[result.label] >= 0.6 &&
           classes[result.label] === "B"
         ) {
-          if (this.webcam1.getScreenshot()){
-                var fraude = this.webcam1.getScreenshot();
-          }    
-          console.log(fraude);
-          alert("Te estás copiando");
+          try {
+            var fraude = this.webcam.getScreenshot();
+            console.log(fraude);
+            alert("Te estás copiando");
+          } catch (error) {
+            console.error(error);
+            // expected output: ReferenceError: nonExistentFunction is not defined
+            // Note - error messages will vary depending on browser
+          }
         }
         // Dispose the tensor to release the memory.
         img.dispose();
@@ -121,20 +125,32 @@ export default function App() {
   }
 
   const capturea = () => {
-    if (counta >= 20 && this.webcam1.getScreenshot()){     
-      var figa = this.webcam1.getScreenshot();
-      console.log(figa);
-      setCounta(0);
-      return figa;
+    if (counta >= 20 && this.webcam.getScreenshot()) {
+      try {
+        var figa = this.webcam.getScreenshot();
+        console.log(figa);
+        setCounta(0);
+        return figa;
+      } catch (error) {
+        console.error(error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+      }
     } else return null;
   };
 
   const captureb = () => {
-    if (countb >= 20 && this.webcam1.getScreenshot()) {
-      var figb = this.webcam1.getScreenshot();
-      console.log(figb);
-      setCountb(0);
-      return figb;
+    if (countb >= 20 && this.webcam.getScreenshot()) {
+      try {
+        var figb = this.webcam.getScreenshot();
+        console.log(figb);
+        setCountb(0);
+        return figb;
+      } catch (error) {
+        console.error(error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+      }
     } else return null;
   };
 
