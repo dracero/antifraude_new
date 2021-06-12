@@ -121,7 +121,7 @@ export default function App() {
   }
 
   const capturea = () => {
-    if (counta >= 20) {
+    if (counta >= 20 && this.webcam1.getScreenshot()){     
       var figa = this.webcam1.getScreenshot();
       console.log(figa);
       setCounta(0);
@@ -130,7 +130,7 @@ export default function App() {
   };
 
   const captureb = () => {
-    if (countb >= 20) {
+    if (countb >= 20 && this.webcam1.getScreenshot()) {
       var figb = this.webcam1.getScreenshot();
       console.log(figb);
       setCountb(0);
