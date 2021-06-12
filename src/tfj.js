@@ -3,16 +3,17 @@ import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
+import * as blazeface from "@tensorflow-models/blazeface";
 
 export default function App() {
   var webcam;
+  let model;
   const [counta, setCounta] = useState(0);
   const [countb, setCountb] = useState(0);
-  const [countc, setCountc] = useState(0);
   const videoConstraints = {
     width: 156,
     height: 156,
-    facingMode: "user"
+    facingMode: "user" // si rinden con celular toma la cámara frontal
   };
   //acá llamo al video
   const video = (
@@ -28,7 +29,6 @@ export default function App() {
   var net;
   var a = 0;
   var b = 0;
-  var c = 0;
   const classifier = knnClassifier.create();
 
   async function app() {
@@ -68,46 +68,47 @@ export default function App() {
       addExample(1);
       b = b + 1;
     });
-    document.getElementById("class-c").addEventListener("click", () => {
-      addExample(2);
-      c = c + 1;
-    });
-
     while (true) {
       if (classifier.getNumClasses() > 0) {
+        //detectcion de rostro
+        if (!model) model = await blazeface.load();
+        const returnTensors = false;
+        const predictions = await model.estimateFaces(
+          window.webcamElement,
+          returnTensors
+        );
+        if ((predictions.length < 1 || predictions.length < 1) && b >= 20) {
+          alert("Se fué"); //acà detecta la cantidad de rostros
+        }
+        //fin detección de rostro
         const img = await webcam.capture();
         // Get the activation from mobilenet from the webcam.
         const activation = net.infer(img, "conv_preds");
         // Get the most likely class and confidence from the classifier module.
         const result = await classifier.predictClass(activation);
-        if (a >= 20) {
+        if (a >= 20 && document.getElementById("class-a")) {
           document
             .getElementById("class-a")
             .setAttribute("disabled", "disabled");
         }
-        if (b >= 20) {
+        if (b >= 20 && document.getElementById("class-b")) {
           document
             .getElementById("class-b")
             .setAttribute("disabled", "disabled");
         }
-        if (c >= 20) {
-          document
-            .getElementById("class-c")
-            .setAttribute("disabled", "disabled");
-        }
-        const classes = ["A", "B", "C"];
+        const classes = ["A", "B"];
         document.getElementById("console").innerText = `
       prediction: ${classes[result.label]}\n
       probability: ${result.confidences[result.label]}
     `;
         if (
-          a >= 20 &&
           b >= 20 &&
-          c >= 20 &&
           result.confidences[result.label] >= 0.6 &&
-          (classes[result.label] === "B" || classes[result.label] === "C")
+          classes[result.label] === "B"
         ) {
-          var fraude = this.webcam1.getScreenshot();
+          if (this.webcam1.getScreenshot()){
+                var fraude = this.webcam1.getScreenshot();
+          }    
           console.log(fraude);
           alert("Te estás copiando");
         }
@@ -127,6 +128,7 @@ export default function App() {
       return figa;
     } else return null;
   };
+
   const captureb = () => {
     if (countb >= 20) {
       var figb = this.webcam1.getScreenshot();
@@ -136,22 +138,12 @@ export default function App() {
     } else return null;
   };
 
-  const capturec = () => {
-    if (countc >= 20) {
-      var figc = this.webcam1.getScreenshot();
-      console.log(figc);
-      setCountc(0);
-      return figc;
-    } else return null;
-  };
-
   return [
     <div>
       <div id="console"></div>
       {video}
       {capturea()}
       {captureb()}
-      {capturec()}
       <button onClick={app} id="video">
         VideoCapture
       </button>
@@ -160,9 +152,6 @@ export default function App() {
       </button>
       <button onClick={() => setCountb(countb + 1)} id="class-b">
         Add B
-      </button>
-      <button onClick={() => setCountc(countc + 1)} id="class-c">
-        Add C
       </button>
     </div>
   ];

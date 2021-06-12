@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
+    "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow-models/knn-classifier": "1.2.2",
     "@tensorflow-models/mobilenet": "2.0.4",
     "@tensorflow/tfjs": "2.8.2",
