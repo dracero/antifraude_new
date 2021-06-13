@@ -10,6 +10,7 @@ export default function App() {
   let model;
   const [counta, setCounta] = useState(0);
   const [countb, setCountb] = useState(0);
+  const videoRef = React.useRef();
   const videoConstraints = {
     width: 156,
     height: 156,
@@ -20,7 +21,7 @@ export default function App() {
     <Webcam
       id="webcam"
       audio={false}
-      ref={(node) => (this.webcam = node)}
+      ref={videoRef}
       screenshotFormat="image/jpeg"
       videoConstraints={videoConstraints}
     />
@@ -107,7 +108,7 @@ export default function App() {
           classes[result.label] === "B"
         ) {
           try {
-            var fraude = this.webcam.getScreenshot();
+            var fraude = videoRef.current.getScreenshot();
             console.log(fraude);
             alert("Te estás copiando");
           } catch (error) {
@@ -125,9 +126,9 @@ export default function App() {
   }
 
   const capturea = () => {
-    if (counta >= 20 && this.webcam.getScreenshot()) {
+    if (counta >= 20) {
       try {
-        var figa = this.webcam.getScreenshot();
+        var figa = videoRef.current.getScreenshot();
         console.log(figa);
         setCounta(0);
         return figa;
@@ -140,9 +141,9 @@ export default function App() {
   };
 
   const captureb = () => {
-    if (countb >= 20 && this.webcam.getScreenshot()) {
+    if (countb >= 20) {
       try {
-        var figb = this.webcam.getScreenshot();
+        var figb = videoRef.current.getScreenshot();
         console.log(figb);
         setCountb(0);
         return figb;
