@@ -34,6 +34,7 @@ class GoogleBtn extends Component {
         isLogined: true,
         accessToken: response.accessToken
       }));
+      //response.profileObj.email (en esta variable tengo el email del que se logea)
       const { dispatch } = this.props;
       dispatch(loginApp(this.state.isLogined));
     }
