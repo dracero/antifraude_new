@@ -78,7 +78,7 @@ export default function App() {
           window.webcamElement,
           returnTensors
         );
-        if ((predictions.length < 1 || predictions.length < 1) && b >= 20) {
+        if (predictions.length !== 1 && b >= 20) {
           alert("Se fué"); //acà detecta la cantidad de rostros
         }
         //fin detección de rostro
