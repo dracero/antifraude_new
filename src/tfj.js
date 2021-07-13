@@ -79,7 +79,7 @@ export default function App() {
           returnTensors
         );
         if (predictions.length !== 1 && b >= 20) {
-          alert("Se fué"); //acà detecta la cantidad de rostros
+          alert("Más de un rostro"); //acà detecta la cantidad de rostros
         }
         //fin detección de rostro
         const img = await webcam.capture();
