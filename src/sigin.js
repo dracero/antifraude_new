@@ -5,7 +5,7 @@ import { loginApp } from "./actions";
 import { logoutApp } from "./actions";
 
 const CLIENT_ID =
-  "736950382049-22lb4jlnbuo5nt0luno6kc2cabdescum.apps.googleusercontent.com";
+  "89629888591-gsck60rorv2hrs1fi3fqrr27t9a99ct0.apps.googleusercontent.com";
 
 class GoogleBtn extends Component {
   constructor(props) {
